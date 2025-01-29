@@ -1,0 +1,23 @@
+name: Auto-Apply for Jobs
+
+on:
+  schedule:
+    - cron: "0 9 * * 1-5"  # Runs every weekday at 9 AM
+
+jobs:
+  apply_jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+
+      - name: Install Dependencies
+        run: pip install requests beautifulsoup4 smtplib
+
+      - name: Run Job Apply Script
+        run: python apply_jobs.py
